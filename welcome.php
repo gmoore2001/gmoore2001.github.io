@@ -13,5 +13,6 @@ checkAccount("none");
 ?>
 </head>
 <body>
+Gavin Moore
 This is the welcome page for our project
 </body>
