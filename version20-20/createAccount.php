@@ -40,11 +40,12 @@ if (isset($_POST['selection'])) // form loaded itself
 	// build SQL command SECURELY
         // prepare
 	$stmt = $conn->prepare("INSERT INTO users 
-                       (username, encrypted_password, usergroup, email) 
-                       VALUES (?, ?, ?, ?)" );
+                       (username, encrypted_password, usergroup, email,
+firstname, lastname) 
+                       VALUES (?, ?, ?, ?, ?, ?)" );
 	// bind variable names and types
 	$stmt->bind_param("ssss", $username, $encrypted_password, 
-                                  $usergroup, $email);
+                                  $usergroup, $email, $firstname, $lastname);
 
 	$username=$_POST['username'];
 	$encrypted_password="none set";
@@ -83,6 +84,13 @@ if (isset($_POST['selection'])) // form loaded itself
 <tr>
   <td>Email</td>
   <td> <input type='text' name='email' /> </td>
+</tr><tr>
+  <td>First Name</td>
+  <td> <input type='text' name='firstname' /> </td>
+</tr>
+<tr>
+  <td>Last Name</td>
+  <td> <input type='text' name='lastname' /> </td>
 </tr>
 <tr>
   <td colspan='2' style='text-align: center; background-color: white;'> 
