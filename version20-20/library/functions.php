@@ -11,7 +11,7 @@ function checkAccount($zone)
 
 function getDBConnection()
 {
-    $user = "gmooore20";
+    $user = "gmoore20";
     $conn = mysqli_connect("localhost",$user,$user,$user);
 
     // Check connection and shutdown if broken
