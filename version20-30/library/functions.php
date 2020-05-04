@@ -13,7 +13,6 @@ function getDBConnection()
 {
     $user = "gmoore20";
     $conn = mysqli_connect("localhost",$user,$user,$user);
-
     // Check connection and shutdown if broken
     if (mysqli_connect_errno()) {
 	die("<b>Failed to connect to MySQL: " . mysqli_connect_error() . "</b>");
@@ -27,26 +26,25 @@ function printUserTable($conn)
     // build the SQL that pulls the data from the database
     $sql = "SELECT * FROM users;";
     $result = $conn->query($sql);
-
     echo "<table id='usershow'>";    
     if ($result->num_rows > 0) 
     {
 	// column headers
 	echo "<tr>";
-        echo "<th>ID</th>" 
+        echo "<th>NAME</th>" 
            . "<th>USERNAME</th>" 
            . "<th>ENCRYPTED PASSWORD</th>" 
            . "<th>GROUP</th>" 
            . "<th>EMAIL</th>"   ;
 	echo "</tr>";
-
 	// loop through all the rows 
 	while( $row = $result->fetch_assoc() ) 
 	{
 	    // output the data from each row
 	    echo "<tr>";
-	    echo "<td>" . "<td>" . $row["username"] . "</td>" 
-               . "<td>" . $row["encryptedpassword"] . "</td>" 
+	    echo "<td>" . $row["firstname"], " ", $row["lastname"] . "</td>" 
+               . "<td>" . $row["username"] . "</td>" 
+               . "<td>" . $row["encrypted_password"] . "</td>" 
                . "<td>" . $row["usergroup"] . "</td>" 
                . "<td>" . $row["email"] . "</td>"   ;
 	    echo "</tr>";

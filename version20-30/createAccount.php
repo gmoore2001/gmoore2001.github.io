@@ -1,7 +1,26 @@
 <html>
 <head>
 <title>CSC155 001DR Survey Thing</title>
-<link rel="stylesheet" type="text/css" href="library/styles.css">
+<style>
+table, td, th {
+  border: 0px solid black;
+}
+
+table {
+  border-width: 2px;
+  margin-left: auto; 
+  margin-right: auto;
+  padding: 3; 
+
+}
+
+td {
+  vertical-align: bottom;
+  text-align: right;
+  padding: 4; 
+  background-color: antiquewhite;
+}
+</style>
 <?php
 
 require ('library/functions.php');
@@ -21,16 +40,18 @@ if (isset($_POST['selection'])) // form loaded itself
 	// build SQL command SECURELY
         // prepare
 	$stmt = $conn->prepare("INSERT INTO users 
-                       (username, encrypted_password, usergroup, email) 
-                       VALUES (?, ?, ?, ?)" );
+                       (username, encrypted_password, usergroup, email, firstname, lastname) 
+                       VALUES (?, ?, ?, ?, ?, ?)" );
 	// bind variable names and types
-	$stmt->bind_param("ssss", $username, $encrypted_password, 
-                                  $usergroup, $email);
+	$stmt->bind_param("ssssss", $username, $encrypted_password, $usergroup, $email, $firstname, $lastname);
 
 	$username=$_POST['username'];
 	$encrypted_password="none set";
 	$usergroup="user";
-	$email="none set";
+	$email=$_POST['email'];
+	$firstname=$_POST['lastname'];
+	$lastname=$_POST['firstname'];
+	
 
 	// put the statement together and send it to the database
 	$stmt->execute();
@@ -48,7 +69,7 @@ if (isset($_POST['selection'])) // form loaded itself
 
 <form method='POST'>
 <div style='border-width: 2px'>
-<table id='userform'> 
+<table>
 <tr>
   <td>Username</td>
   <td><input type='text' name='username' /></td>
@@ -66,6 +87,16 @@ if (isset($_POST['selection'])) // form loaded itself
   <td> <input type='text' name='email' /> </td>
 </tr>
 <tr>
+  <td>First Name</td>
+  <td> <input type='text' name='firstname' /> </td>
+</tr>
+
+<tr>
+  <td>Last Name</td>
+  <td> <input type='text' name='lastname' /> </td>
+</tr>
+
+<tr>
   <td colspan='2' style='text-align: center; background-color: white;'> 
     <input type='submit' name='selection' value='Create Account' />
     &nbsp;
@@ -79,6 +110,20 @@ if (isset($_POST['selection'])) // form loaded itself
 </tr>
 </table>
 </div>
+</form>
+
+
+<h3>Short Form</h3>
+<form method='POST'>
+Username: <input type='text' name='username' /> <br />
+Password: <input type='text' name='password' /> 
+This is visible so you don't really put in a password.  This site is not secure! <br/>
+Confirm Password: <input type='text' name='confirm' /> 
+This is visible so you don't really put in a password.  This site is not secure! <br/>
+<input type='submit' name='selection' value='Create Account' />
+    &nbsp;
+    &nbsp;
+<input type='submit' name='selection' value='Cancel' />
 </form>
 
 </body>
