@@ -40,17 +40,18 @@ if (isset($_POST['selection'])) // form loaded itself
 	// build SQL command SECURELY
         // prepare
 	$stmt = $conn->prepare("INSERT INTO users 
-                       (username, encrypted_password, usergroup, email,
-firstname, lastname) 
+                       (username, encrypted_password, usergroup, email, firstname, lastname) 
                        VALUES (?, ?, ?, ?, ?, ?)" );
 	// bind variable names and types
-	$stmt->bind_param("ssss", $username, $encrypted_password, 
-                                  $usergroup, $email, $firstname, $lastname);
+	$stmt->bind_param("ssssss", $username, $encrypted_password, $usergroup, $email, $firstname, $lastname);
 
 	$username=$_POST['username'];
 	$encrypted_password="none set";
 	$usergroup="user";
-	$email="none set";
+	$email=$_POST['email'];
+	$firstname=$_POST['lastname'];
+	$lastname=$_POST['firstname'];
+	
 
 	// put the statement together and send it to the database
 	$stmt->execute();
@@ -84,14 +85,17 @@ firstname, lastname)
 <tr>
   <td>Email</td>
   <td> <input type='text' name='email' /> </td>
-</tr><tr>
+</tr>
+<tr>
   <td>First Name</td>
   <td> <input type='text' name='firstname' /> </td>
 </tr>
+
 <tr>
   <td>Last Name</td>
   <td> <input type='text' name='lastname' /> </td>
 </tr>
+
 <tr>
   <td colspan='2' style='text-align: center; background-color: white;'> 
     <input type='submit' name='selection' value='Create Account' />
