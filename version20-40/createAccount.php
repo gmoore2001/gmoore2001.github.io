@@ -46,12 +46,12 @@ if (isset($_POST['selection'])) // form loaded itself
 	$stmt->bind_param("ssssss", $username, $encrypted_password, $usergroup, $email, $firstname, $lastname);
 
 	$username=$_POST['username'];
-	$encrypted_password="none set";
+	$encrypted_password=password_hash($_POST['password'],PASSWORD_DEFAULT);
 	$usergroup=$_POST['usergroup'];
 	$email=$_POST['email'];
 	$firstname=$_POST['lastname'];
 	$lastname=$_POST['firstname'];
-	
+
 
 	// put the statement together and send it to the database
 	$stmt->execute();
